@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         otp_view.setOnFinishListener {
             Log.i("MainActivity", it)
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            otp_view.showError()
         }
         otp_view.setOnCharacterUpdatedListener {
             if(it)

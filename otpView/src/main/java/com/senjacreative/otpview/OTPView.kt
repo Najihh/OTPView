@@ -60,6 +60,7 @@ class OTPView @JvmOverloads constructor(
     // All
     private val itemCount: Int
     private val showCursor: Boolean
+    private var showError = false
     private val underscoreCursor: Boolean
     private val customCursorDrawable: Drawable?
     private val inputType: Int
@@ -213,6 +214,7 @@ class OTPView @JvmOverloads constructor(
                 get() = (afterText.count() - beforeText.count()) > 1
 
             override fun afterTextChanged(s: Editable?) {
+                hideError()
                 if (!disableEditListener) {
                     when {
                         editTexts[index].text.isEmpty() -> {
@@ -361,17 +363,12 @@ class OTPView @JvmOverloads constructor(
 
     // region Styling
 
-    private fun setStyleError(){
-        for (x in 0 until editTexts.size) {
-            val et = editTexts[x]
-            styleError(et)
-        }
-    }
-
     private fun styleEditTexts() {
         for (x in 0 until editTexts.size) {
             val et = editTexts[x]
-            if (x < focusIndex) {
+            if(showError){
+                styleError(et)
+            }else if (x < focusIndex) {
                 styleFilled(et)
             } else if (x == focusIndex) {
                 styleHighlighted(et)
@@ -382,21 +379,21 @@ class OTPView @JvmOverloads constructor(
     }
 
     private fun styleDefault(editText: EditText) {
-        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeDefault.toFloat());
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeDefault.toFloat())
         editText.setTextColor(textColor)
         editText.background = backgroundImage
         editText.typeface = font
     }
 
     private fun styleHighlighted(editText: EditText) {
-        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, highlightedTextSize.toFloat());
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, highlightedTextSize.toFloat())
         editText.setTextColor(highlightedTextColor)
         editText.background = highlightedBackgroundImage
         editText.typeface = highlightedFont
     }
 
     private fun styleFilled(editText: EditText) {
-        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, filledTextSize.toFloat());
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, filledTextSize.toFloat())
         editText.setTextColor(filledTextColor)
         editText.background =
             if (editText.text.isNullOrBlank()) backgroundImage else filledBackgroundImage
@@ -404,7 +401,7 @@ class OTPView @JvmOverloads constructor(
     }
 
     private fun styleError(editText: EditText) {
-        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, errorTextSize.toFloat());
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, errorTextSize.toFloat())
         editText.setTextColor(errorTextColor)
         editText.background = errorBackgroundImage
         editText.typeface = errorFont
@@ -471,15 +468,13 @@ class OTPView @JvmOverloads constructor(
     // region Public
 
     fun showError(){
-        setStyleError()
+        showError = true
+        styleEditTexts()
     }
 
     fun hideError(){
-        if (editTexts.isNotEmpty()){
-            if (editTexts[0].background == errorBackgroundImage){
-                styleEditTexts()
-            }
-        }
+        showError = false
+        styleEditTexts()
     }
 
     fun isFilled(): Boolean {

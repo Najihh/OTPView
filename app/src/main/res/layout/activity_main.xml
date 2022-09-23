@@ -94,6 +94,8 @@
         app:layout_constraintTop_toBottomOf="@+id/text_to_copy"
         app:otp_backgroundImage="@drawable/background"
         app:otp_cursorColor="@color/colorPrimary"
+        app:otp_errorTextColor="@color/colorRed"
+        app:otp_errorBackgroundImage="@drawable/background_error"
         app:otp_filledBackgroundImage="@drawable/background_filled"
         app:otp_filledTextSize="24sp"
         app:otp_highlightedBackgroundImage="@drawable/background_highlighted"
