@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/Kotlin/OtpView/app/src/main/res/drawable/background_filled.xml" value="0.2435" />
+        <entry key="..\:/Project/Kotlin/OtpView/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="otpView/src/main/res/drawable/inset_underscore.xml" value="0.1" />
         <entry key="otpView/src/main/res/drawable/line.xml" value="0.1" />
@@ -11,7 +13,8 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

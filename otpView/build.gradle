@@ -39,7 +39,7 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.kevinschildhorn.otpview'
+                groupId = 'com.senjacreative.otpview'
                 version = project.versionName
             }
         }

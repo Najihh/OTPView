@@ -30,5 +30,10 @@
         <attr name="otp_filledBackgroundImage" format="reference" />
         <attr name="otp_filledFont" format="reference" />
 
+        <attr name="otp_errorTextSize" format="dimension" />
+        <attr name="otp_errorTextColor" format="integer" />
+        <attr name="otp_errorBackgroundImage" format="reference" />
+        <attr name="otp_errorFont" format="reference" />
+
     </declare-styleable>
 </resources>

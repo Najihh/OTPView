@@ -1,4 +1,4 @@
-package com.kevinschildhorn.otpview.sample
+package com.senjacreative.otpview.sample
 
 import android.os.Bundle
 import android.util.DisplayMetrics

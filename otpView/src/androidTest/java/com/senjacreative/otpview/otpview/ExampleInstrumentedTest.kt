@@ -1,4 +1,4 @@
-package com.kevinschildhorn.otpview.sample
+package com.senjacreative.otpview.otpview
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.kevinschildhorn.otpview.sample", appContext.packageName)
+        assertEquals("com.senjacreative.otpview.otpview.test", appContext.packageName)
     }
 }

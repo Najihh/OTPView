@@ -1,4 +1,4 @@
-package com.kevinschildhorn.otpview.sample
+package com.senjacreative.otpview.otpview
 
 import org.junit.Test
 

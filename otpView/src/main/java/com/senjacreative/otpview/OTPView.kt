@@ -22,10 +22,9 @@
     SOFTWARE.
  */
 
-package com.kevinschildhorn.otpview
+package com.senjacreative.otpview
 
 import android.content.ClipData
-import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.Resources
@@ -38,15 +37,15 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.util.TypedValue
-import android.view.*
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.widget.addTextChangedListener
-import com.kevinschildhorn.otpview.otpview.R
+import com.senjacreative.otpview.otpview.R
 import kotlinx.android.synthetic.main.otp_view_layout.view.*
 
 
@@ -93,6 +92,13 @@ class OTPView @JvmOverloads constructor(
     private val filledTextColor: Int
     private val filledBackgroundImage: Drawable?
     private val filledFont: Typeface?
+
+    // Error
+
+    private val errorTextSize: Int
+    private val errorTextColor: Int
+    private val errorBackgroundImage: Drawable?
+    private val errorFont: Typeface?
 
     // endregion
 
@@ -160,6 +166,16 @@ class OTPView @JvmOverloads constructor(
                             ?: backgroundImage
                     filledFont = getFont(R.styleable.OTPView_otp_filledFont) ?: font
 
+                    errorTextSize = getDimensionPixelSize(
+                        R.styleable.OTPView_otp_errorTextSize,
+                        textSizeDefault
+                    )
+                    errorTextColor = getInteger(R.styleable.OTPView_otp_errorTextColor, textColor)
+                    errorBackgroundImage =
+                        getDrawable(R.styleable.OTPView_otp_errorBackgroundImage)
+                            ?: backgroundImage
+                    errorFont = getFont(R.styleable.OTPView_otp_errorFont) ?: font
+
                     initEditTexts()
                 } finally {
                     recycle()
@@ -193,7 +209,7 @@ class OTPView @JvmOverloads constructor(
             var beforeText: String = ""
             var afterText: String = ""
 
-            val isCopy:Boolean
+            val isCopy: Boolean
                 get() = (afterText.count() - beforeText.count()) > 1
 
             override fun afterTextChanged(s: Editable?) {
@@ -208,8 +224,7 @@ class OTPView @JvmOverloads constructor(
                             s?.let {
                                 if (isCopy) {
                                     setText(it.toString(), index, false)
-                                }
-                                else {
+                                } else {
                                     editTexts[index].setText(it.first().toString())
                                 }
                             }
@@ -220,10 +235,12 @@ class OTPView @JvmOverloads constructor(
                     }
                 }
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 print("Before Text Changed! ${s.toString()} $start $count $after")
                 beforeText = s.toString()
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 print("on Text Changed! ${s.toString()} $start $count $before")
                 afterText = s.toString()
@@ -344,9 +361,16 @@ class OTPView @JvmOverloads constructor(
 
     // region Styling
 
+    private fun setStyleError(){
+        for (x in 0 until editTexts.size) {
+            val et = editTexts[x]
+            styleError(et)
+        }
+    }
+
     private fun styleEditTexts() {
         for (x in 0 until editTexts.size) {
-            var et = editTexts[x]
+            val et = editTexts[x]
             if (x < focusIndex) {
                 styleFilled(et)
             } else if (x == focusIndex) {
@@ -374,8 +398,16 @@ class OTPView @JvmOverloads constructor(
     private fun styleFilled(editText: EditText) {
         editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, filledTextSize.toFloat());
         editText.setTextColor(filledTextColor)
-        editText.background = filledBackgroundImage
+        editText.background =
+            if (editText.text.isNullOrBlank()) backgroundImage else filledBackgroundImage
         editText.typeface = filledFont
+    }
+
+    private fun styleError(editText: EditText) {
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, errorTextSize.toFloat());
+        editText.setTextColor(errorTextColor)
+        editText.background = errorBackgroundImage
+        editText.typeface = errorFont
     }
 
     // endregion
@@ -437,6 +469,18 @@ class OTPView @JvmOverloads constructor(
     // endregion
 
     // region Public
+
+    fun showError(){
+        setStyleError()
+    }
+
+    fun hideError(){
+        if (editTexts.isNotEmpty()){
+            if (editTexts[0].background == errorBackgroundImage){
+                styleEditTexts()
+            }
+        }
+    }
 
     fun isFilled(): Boolean {
         editTexts.forEach {
