@@ -1,5 +1,5 @@
 # OTPView
-[![](https://jitpack.io/v/KevinSchildhorn/OTPView.svg)](https://jitpack.io/#KevinSchildhorn/OTPView)
+[![](https://jitpack.io/v/Najihh/OTPView.svg)](https://jitpack.io/#Najihh/OTPView)
 
  Heavily customizable OTP or Pin View. **Note**:OTPView is still in early stages
 
@@ -25,7 +25,7 @@ allprojects {
 }
 
 dependencies {
-implementation 'com.github.KevinSchildhorn:OTPView:0.2.5'
+    implementation 'com.github.Najihh:OTPView:0.1.1'
 }
 ```
 
@@ -61,8 +61,15 @@ implementation 'com.github.KevinSchildhorn:OTPView:0.2.5'
 | otp_filledTextColor | integer | The text color of items before the cursor | otp_textColor |
 | otp_filledBackgroundImage | reference | The background image of items before the cursor| otp_backgroundImage |
 | otp_filledFont | reference | The font of items before the cursor | otp_Font |
+|  |  |  |  |
+| otp_errorTextSize | dimension | The text size of items before the cursor when error state | otp_textSize |
+| otp_errorTextColor | integer | The text color of items before the cursor when error state | otp_textColor |
+| otp_errorBackgroundImage | reference | The background image of items before the cursor when error state | otp_backgroundImage |
+| otp_errorFont | reference | The font of items before the cursor when error state | otp_Font |
 
 ## API
+* `fun showError()` - call error state view
+* `fun hideError()` - hide error state view
 
 * `fun setOnFinishListener(func: (String) -> Unit)` - Simple listener callback for when all items have been filled
 ```
