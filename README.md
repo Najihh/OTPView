@@ -5,10 +5,11 @@
 
 ## Description
 
-OTPView is meant to be a highly customizable OTP / Pin View for android. It supports customization for text styling, background styling, and dimensional styling. It defines the view as 3 segments:
+OTPView is meant to be a highly customizable OTP / Pin View for android. It supports customization for text styling, background styling, and dimensional styling. It defines the view as 4 segments:
 * The Highlighted Item
 * The Empty Item
 * The filled Item
+* The error Item
 
 Each type can be customized separately, with the empty item being the default.
 
