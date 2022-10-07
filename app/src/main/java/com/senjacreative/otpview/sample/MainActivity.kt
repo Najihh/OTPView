@@ -56,6 +56,6 @@ class MainActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels
 
-        otp_view.fitToWidth(width)
+        otp_view.fitToWidth(width, true)
     }
 }

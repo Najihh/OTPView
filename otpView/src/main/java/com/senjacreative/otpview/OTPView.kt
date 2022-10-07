@@ -515,12 +515,12 @@ class OTPView @JvmOverloads constructor(
         showKeyboard(showKeyboard, editTexts[focusIndex])
     }
 
-    fun fitToWidth(width: Int) {
+    fun fitToWidth(width: Int, keepOtpItemSquare: Boolean = false) {
         val outerMargin = 8.dpTopx
         var dividedSpace = (width - (outerMargin * 2)) / editTexts.size
         dividedSpace -= marginBetween
         itemWidth = dividedSpace
-        itemHeight = (itemWidth * 1.25f).toInt()
+        itemHeight = if(keepOtpItemSquare) itemWidth else (itemWidth * 1.25f).toInt()
 
         val params = LayoutParams(
             itemWidth,
